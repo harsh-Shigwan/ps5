@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seminar Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* #map {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+        } */
+        
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center; /* Center-align content */
+        }
+        .container img {
+            max-width: 100%; /* Make the image responsive */
+        }
+
+        h1 {
+            text-align: center;
+        }
+        .maps{
+            margin-left: 30%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="maps"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.7457230581385!2d72.87203067516874!3d19.206305347868955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b0e57647569d%3A0xc0aec329c82d3555!2sThakur%20College%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1698822626950!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="container">
+        <h1>Seminar Information</h1>
+        <div id="map"></div>
+        <p>The seminar will be held at:</p>
+        <p>Thakur College of Engineering and Technology</p>
+        <p>Address: Thakur Village, Kandivali East, Mumbai, Maharashtra, India</p>
+    </div>
+
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 19.2044, lng: 72.8608 },
+                zoom: 15
+            });
+
+            const marker = new google.maps.Marker({
+                position: { lat: 19.2044, lng: 72.8608 },
+                map: map,
+                title: 'Thakur College'
+            });
+        }
+    </script>
+</body>
+
+</html>

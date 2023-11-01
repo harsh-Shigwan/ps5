@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .quiz-container {
+      margin: 20px;
+    }
+
+    #question-container {
+      margin-bottom: 20px;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div id="question-container">
+      <h2 id="question">Question Placeholder</h2>
+    </div>
+    <div id="options-container" class="hide"></div>
+    <button id="next-btn" class="hide" onclick="nextQuestion()">Next</button>
+    <div id="result" class="hide">
+      <p>Score: <span id="score">0</span></p>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the capital of France?",
+        options: ["London", "Paris", "Rome", "Berlin"],
+        answer: "Paris"
+      },
+      {
+        question: "What is 2 + 2?",
+        options: ["3", "4", "5", "6"],
+        answer: "4"
+      },
+      {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Venus", "Mars", "Mercury"],
+        answer: "Mars"
+      },
+      {
+        question: "What is the largest mammal in the world?",
+        options: ["Elephant", "Giraffe", "Blue Whale", "Hippopotamus"],
+        answer: "Blue Whale"
+      },
+      {
+        question: "What year did the Titanic sink?",
+        options: ["1905", "1912", "1918", "1923"],
+        answer: "1912"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options-container');
+    const nextButton = document.getElementById('next-btn');
+    const resultElement = document.getElementById('result');
+    const scoreElement = document.getElementById('score');
+
+    function loadQuestion() {
+      const currentQuizData = questions[currentQuestion];
+      questionElement.textContent = currentQuizData.question;
+      optionsElement.innerHTML = '';
+
+      currentQuizData.options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option');
+        button.addEventListener('click', checkAnswer);
+        optionsElement.appendChild(button);
+      });
+
+      hideResult();
+      showQuestion();
+    }
+
+    function checkAnswer(e) {
+      const selectedOption = e.target.textContent;
+      const currentQuizData = questions[currentQuestion];
+
+      if (selectedOption === currentQuizData.answer) {
+        score++;
+      }
+
+      disableOptions();
+
+      if (currentQuestion < questions.length - 1) {
+        showNextButton();
+      } else {
+        showResult();
+      }
+    }
+
+    function disableOptions() {
+      const options = document.querySelectorAll('.option');
+      options.forEach(option => {
+        option.disabled = true;
+      });
+    }
+
+    function showNextButton() {
+      nextButton.classList.remove('hide');
+    }
+
+    function hideResult() {
+      resultElement.classList.add('hide');
+    }
+
+    function showResult() {
+      resultElement.classList.remove('hide');
+      scoreElement.textContent = score;
+    }
+
+    function showQuestion() {
+      optionsElement.classList.remove('hide');
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+        enableOptions();
+      }
+    }
+
+    function enableOptions() {
+      const options = document.querySelectorAll('.option');
+      options.forEach(option => {
+        option.disabled = false;
+      });
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
